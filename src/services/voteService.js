@@ -2,7 +2,7 @@ import { db } from '../config/firebase';
 import { collection, query, where, orderBy, limit, getDocs, doc, setDoc, getCountFromServer, getDoc, serverTimestamp } from 'firebase/firestore';
 
 export const getAllVoters = async () => {
-  const q = query(collection(db, 'votes'), orderBy('createdAt', 'desc'));
+  const q = query(collection(db, 'Voting'), orderBy('createdAt', 'desc'));
   const snap = await getDocs(q);
   return snap.docs.map(d => ({ id: d.id, ...d.data() }));
 };

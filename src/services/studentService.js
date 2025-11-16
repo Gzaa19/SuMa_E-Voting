@@ -7,7 +7,7 @@ export const getStudent = async (uid) => {
 };
 
 export const getAllStudents = async () => {
-  const snapshot = await getDocs(collection(db, 'students'));
+  const snapshot = await getDocs(collection(db, 'Mahasiswa'));
   const students = [];
   snapshot.forEach((d) => {
     students.push({ id: d.id, ...d.data() });

@@ -26,7 +26,6 @@ try {
         throw e;
       }
     },
-    // helper untuk object (opsional)
     getObject: async (key) => {
       const s = await storage.getString(key);
       return s ? JSON.parse(s) : null;
