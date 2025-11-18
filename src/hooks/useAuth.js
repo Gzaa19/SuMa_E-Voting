@@ -6,10 +6,8 @@ export const useAuth = () => {
 
   useEffect(() => {
     const unsub = subscribeAuth((u) => setUser(u));
-    (async () => {
-      const saved = await getSavedUser();
-      if (saved) setUser(saved);
-    })();
+    const saved = getSavedUser();
+    if (saved) setUser(saved);
     return () => unsub();
   }, []);
 

@@ -22,8 +22,7 @@ function LogoutScreen() {
 
 export default function BottomTabNavigator() {
   const insets = useSafeAreaInsets();
-  const ICON_SIZE = 30;
-  const TAB_CONTENT_HEIGHT = 38;
+  const ICON_SIZE = 28;
 
   return (
     <Tab.Navigator
@@ -35,17 +34,15 @@ export default function BottomTabNavigator() {
         tabBarShowLabel: false,
         tabBarHideOnKeyboard: true,
         
-        // --- PERBAIKAN UTAMA DI BAWAH INI ---
         tabBarStyle: {
           borderTopWidth: 0,
           backgroundColor: '#fff',
           elevation: 8,
-          height: TAB_CONTENT_HEIGHT + insets.bottom,
-          paddingTop: 4,
-          paddingBottom: insets.bottom,
+          paddingTop: 8,
+          paddingBottom: insets.bottom + 8,
+          height: 60 + insets.bottom,
         },
         tabBarItemStyle: {
-          height: '100%',
           justifyContent: 'center',
           alignItems: 'center',
         },

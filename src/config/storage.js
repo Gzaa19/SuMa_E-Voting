@@ -1,51 +1,87 @@
-let storage;
-let isMMKV = false;
-try {
-  const { MMKV } = require('react-native-mmkv');
-  const mmkv = new MMKV();
-  isMMKV = true;
-  storage = {
-    getString: async (key) => {
-      try {
-        return mmkv.getString(key) ?? null;
-      } catch (e) {
-        throw e;
-      }
-    },
-    set: async (key, value) => {
-      try {
-        mmkv.set(key, value);
-      } catch (e) {
-        throw e;
-      }
-    },
-    delete: async (key) => {
-      try {
-        mmkv.delete(key);
-      } catch (e) {
-        throw e;
-      }
-    },
-    getObject: async (key) => {
-      const s = await storage.getString(key);
-      return s ? JSON.parse(s) : null;
-    },
-    setObject: async (key, obj) => {
-      return storage.set(key, JSON.stringify(obj));
-    },
-  };
-} catch (e) {
-  const SecureStore = require('expo-secure-store');
-  storage = {
-    getString: async (key) => SecureStore.getItemAsync(key),
-    set: async (key, value) => SecureStore.setItemAsync(key, value),
-    delete: async (key) => SecureStore.deleteItemAsync(key),
-    getObject: async (key) => {
-      const s = await SecureStore.getItemAsync(key);
-      return s ? JSON.parse(s) : null;
-    },
-    setObject: async (key, obj) => SecureStore.setItemAsync(key, JSON.stringify(obj)),
-  };
-}
+import { createMMKV } from 'react-native-mmkv';
 
-export { storage, isMMKV };
+export const storage = createMMKV({
+  id: 'suma-evoting-storage',
+  encryptionKey: 'suma-2024-secure-key',
+});
+
+// ========== SET METHODS ==========
+
+// Set user object (serialize to JSON)
+export const setUser = (user) => {
+  storage.set('user', JSON.stringify(user));
+};
+
+// Set auth token
+export const setToken = (token) => {
+  storage.set('token', token);
+};
+
+// Set onboarding status
+export const setOnboardingComplete = (value) => {
+  storage.set('onboarding-complete', value);
+};
+
+// Set has voted status
+export const setHasVoted = (value) => {
+  storage.set('has-voted', value);
+};
+
+// ========== GET METHODS ==========
+
+// Get user object (deserialize from JSON)
+export const getUser = () => {
+  const user = storage.getString('user');
+  return user ? JSON.parse(user) : null;
+};
+
+// Get auth token
+export const getToken = () => {
+  return storage.getString('token') ?? null;
+};
+
+// Get onboarding status
+export const getOnboardingComplete = () => {
+  return storage.getBoolean('onboarding-complete') ?? false;
+};
+
+// Get has voted status
+export const getHasVoted = () => {
+  return storage.getBoolean('has-voted') ?? false;
+};
+
+// ========== KEYS UTILITY ==========
+
+// Check if user key exists
+export const hasUser = () => {
+  return storage.contains('user');
+};
+
+// Get all keys
+export const getAllKeys = () => {
+  return storage.getAllKeys();
+};
+
+// ========== REMOVE METHODS ==========
+
+// Remove user
+export const removeUser = () => {
+  storage.delete('user');
+};
+
+// Remove token
+export const removeToken = () => {
+  storage.delete('token');
+};
+
+// Remove specific key
+export const removeKey = (key) => {
+  storage.delete(key);
+};
+
+// ========== CLEAR ALL ==========
+
+// Clear all storage data
+export const clearAll = () => {
+  storage.clearAll();
+};

@@ -3,7 +3,7 @@ export const candidates = [
     key: 'c1',
     name: 'Gaza Al Ghozali Chansa',
     id: '24060123140183',
-    image: require('../../../assets/Pas Foto Gaza UNDIP.jpeg'),
+    image: require('../../assets/gaza.png'),
     visi: 'Menjadikan himpunan sebagai wadah aspirasi dan pengembangan diri yang inovatif dan inklusif.',
     misi: [
       'Meningkatkan kualitas program kerja yang berorientasi pada kebutuhan anggota.',
@@ -15,7 +15,7 @@ export const candidates = [
     key: 'c2',
     name: 'Jihan Saniyya Pudaliba',
     id: '24060123140184',
-    image: require('../../../assets/Pas Foto Jihan UNDIP.jpeg'),
+    image: require('../../assets/jihan.png'),
     visi: 'Mendorong partisipasi aktif anggota dan memperkuat keterlibatan dalam setiap program.',
     misi: [
       'Optimalisasi komunikasi internal dan eksternal himpunan.',

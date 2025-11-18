@@ -1,20 +1,19 @@
 import { auth, db } from '../config/firebase';
-import { storage } from '../config/storage';
+import { getUser, setUser, removeUser } from '../config/storage';
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 
-export const getSavedUser = async () => {
-  const saved = await storage.getString('user');
-  return saved ? JSON.parse(saved) : null;
+export const getSavedUser = () => {
+  return getUser();
 };
 
 export const subscribeAuth = (cb) => {
   return onAuthStateChanged(auth, (u) => {
     if (u) {
-      storage.set('user', JSON.stringify({ uid: u.uid, email: u.email }));
+      setUser({ uid: u.uid, email: u.email });
       cb(u);
     } else {
-      storage.delete('user');
+      removeUser();
       cb(null);
     }
   });
@@ -23,13 +22,13 @@ export const subscribeAuth = (cb) => {
 export const login = async (email, password) => {
   const res = await signInWithEmailAndPassword(auth, email, password);
   const u = res.user;
-  await storage.set('user', JSON.stringify({ uid: u.uid, email: u.email }));
+  setUser({ uid: u.uid, email: u.email });
   return u;
 };
 
 export const logout = async () => {
   await signOut(auth);
-  await storage.delete('user');
+  removeUser();
 };
 
 export const register = async (email, password, profile) => {
@@ -45,7 +44,7 @@ export const register = async (email, password, profile) => {
       angkatan: profile?.angkatan ?? null,
       createdAt: serverTimestamp(),
     });
-    await storage.set('user', JSON.stringify({ uid: u.uid, email: u.email }));
+    setUser({ uid: u.uid, email: u.email });
     return u;
   } catch (e) {
     console.error('register error:', e);
