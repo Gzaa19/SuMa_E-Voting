@@ -2,7 +2,7 @@
 
 SuMa E-Voting adalah aplikasi mobile berbasis React Native yang dirancang untuk memfasilitasi proses pemilihan umum (e-voting) secara digital, aman, dan efisien. Aplikasi ini memungkinkan pengguna untuk melihat kandidat, memberikan suara, dan mengelola profil mereka dengan mudah.
 
-## 🚀 Fitur Utama
+## Fitur Utama
 
 - **Autentikasi Pengguna**: Sistem login dan registrasi yang aman menggunakan Firebase Authentication.
 - **Manajemen Kandidat**: Melihat daftar kandidat beserta visi dan misi mereka.
@@ -11,7 +11,7 @@ SuMa E-Voting adalah aplikasi mobile berbasis React Native yang dirancang untuk 
 - **Persistensi Data**: Penyimpanan sesi login yang cepat dan aman menggunakan MMKV.
 - **Antarmuka Modern**: Desain UI yang responsif dan user-friendly.
 
-## 🛠 Teknologi yang Digunakan
+## Teknologi yang Digunakan
 
 Project ini dibangun menggunakan teknologi berikut:
 
@@ -22,7 +22,7 @@ Project ini dibangun menggunakan teknologi berikut:
 - **Penyimpanan Lokal**: [react-native-mmkv](https://github.com/mamous/react-native-mmkv)
 - **Icons**: Expo Vector Icons
 
-## 📋 Prasyarat Instalasi
+## Prasyarat Instalasi
 
 Sebelum menjalankan project ini, pastikan Anda telah menginstal:
 
@@ -30,7 +30,7 @@ Sebelum menjalankan project ini, pastikan Anda telah menginstal:
 - [npm](https://www.npmjs.com/) atau [yarn](https://yarnpkg.com/)
 - Aplikasi **Expo Go** di perangkat Android/iOS Anda (untuk testing)
 
-## ⚙️ Cara Instalasi dan Penggunaan
+## Cara Instalasi dan Penggunaan
 
 Ikuti langkah-langkah berikut untuk menjalankan project di lokal:
 
@@ -58,7 +58,7 @@ Ikuti langkah-langkah berikut untuk menjalankan project di lokal:
 5. **Scan QR Code**
    Gunakan aplikasi Expo Go di HP Anda untuk scan QR code yang muncul di terminal, atau tekan `a` untuk menjalankan di Android Emulator / `i` untuk iOS Simulator.
 
-## 📂 Susunan Project
+## Susunan Project
 
 Berikut adalah struktur direktori utama dari project ini:
 
@@ -79,17 +79,7 @@ SuMa_E-Voting/
 └── README.md            # Dokumentasi project
 ```
 
-## 🤝 Kontribusi
-
-Kontribusi sangat diterima! Jika Anda ingin berkontribusi pada project ini, silakan ikuti langkah berikut:
-
-1. Fork repository ini.
-2. Buat branch fitur baru (`git checkout -b fitur-baru`).
-3. Commit perubahan Anda (`git commit -m 'Menambahkan fitur baru'`).
-4. Push ke branch tersebut (`git push origin fitur-baru`).
-5. Buat Pull Request.
-
-## 📄 Lisensi
+## Lisensi
 
 Project ini dilisensikan di bawah lisensi **MIT**. Lihat file [LICENSE](LICENSE) untuk detail lebih lanjut.
 
