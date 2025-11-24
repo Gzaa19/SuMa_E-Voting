@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app"; 
-import { getAuth } from 'firebase/auth';
+import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { storage } from './storage';
 
 const firebaseConfig = { 
   apiKey: "AIzaSyD8AG9RYktXzfPh7JK8B28TdCSYCsjYtuU", 
@@ -12,7 +13,26 @@ const firebaseConfig = {
   measurementId: "G-PW04GJQBHE" 
 }; 
 
-const app = initializeApp(firebaseConfig); 
-export const auth = getAuth(app);
+// MMKV Storage adapter that mimics AsyncStorage interface
+const MMKVStorage = {
+  async getItem(key) {
+    const value = storage.getString(key);
+    return value ?? null;
+  },
+  async setItem(key, value) {
+    storage.set(key, value);
+  },
+  async removeItem(key) {
+    storage.delete(key);
+  },
+};
+
+const app = initializeApp(firebaseConfig);
+
+// Initialize Auth with MMKV as persistence layer
+export const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(MMKVStorage),
+});
+
 export const db = getFirestore(app);
 export default app;

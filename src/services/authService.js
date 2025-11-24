@@ -1,18 +1,26 @@
 import { auth, db } from '../config/firebase';
-import { getUser, setUser, removeUser } from '../config/storage';
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { getUser, setUser, removeUser, getToken, setToken, removeToken } from '../config/storage';
 
 export const getSavedUser = () => {
   return getUser();
 };
 
+export const getSavedToken = () => {
+  return getToken();
+};
+
 export const subscribeAuth = (cb) => {
-  return onAuthStateChanged(auth, (u) => {
+  return onAuthStateChanged(auth, async (u) => {
     if (u) {
+      // Get Firebase ID token and save to MMKV
+      const token = await u.getIdToken();
+      setToken(token);
       setUser({ uid: u.uid, email: u.email });
       cb(u);
     } else {
+      removeToken();
       removeUser();
       cb(null);
     }
@@ -22,12 +30,16 @@ export const subscribeAuth = (cb) => {
 export const login = async (email, password) => {
   const res = await signInWithEmailAndPassword(auth, email, password);
   const u = res.user;
+  // Get and save Firebase ID token
+  const token = await u.getIdToken();
+  setToken(token);
   setUser({ uid: u.uid, email: u.email });
   return u;
 };
 
 export const logout = async () => {
   await signOut(auth);
+  removeToken();
   removeUser();
 };
 
@@ -44,6 +56,9 @@ export const register = async (email, password, profile) => {
       angkatan: profile?.angkatan ?? null,
       createdAt: serverTimestamp(),
     });
+    // Get and save Firebase ID token
+    const token = await u.getIdToken();
+    setToken(token);
     setUser({ uid: u.uid, email: u.email });
     return u;
   } catch (e) {
